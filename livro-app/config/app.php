@@ -185,4 +185,19 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Sanctum Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Here you may configure your Sanctum settings. Sanctum provides a simple
+    | and convenient way to authenticate SPA's and mobile applications. You
+    | may specify multiple authentication guards and encryption drivers.
+    |
+    */
+
+    'sanctum' => [
+        'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'localhost,localhost:3000,localhost:8080,127.0.0.1,127.0.0.1:8000,::1')),
+    ],
+
 ];
