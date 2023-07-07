@@ -1,0 +1,20 @@
+INSERT INTO autores (nome, biografia, created_at, updated_at)
+VALUES
+    ('John Smith', 'John Smith é um renomado autor de suspense e mistério.', NOW(), NOW()),
+    ('Maria Silva', 'Maria Silva é uma escritora de romances históricos premiada.', NOW(), NOW()),
+    ('Pedro Santos', 'Pedro Santos é um autor de ficção científica com uma imaginação incrível.', NOW(), NOW());
+
+
+INSERT INTO livros (titulo, descricao, autor_id, preco, quantidade, created_at, updated_at)
+VALUES
+    ('Aventuras Fantásticas', 'Uma emocionante jornada cheia de magia e mistério.', 1, 29.99, 5, NOW(), NOW()),
+    ('O Segredo do Abismo', 'Um romance cheio de suspense e reviravoltas.', 2, 19.99, 3, NOW(), NOW()),
+    ('O Destino do Herói', 'Um épico de fantasia com batalhas épicas e heróis lendários.', 1, 24.99, 8, NOW(), NOW()),
+    ('O Mistério do Castelo Assombrado', 'Uma história assustadora cheia de segredos sombrios.', 3, 14.99, 2, NOW(), NOW()),
+    ('O Último Suspiro', 'Um thriller psicológico que vai deixar você sem fôlego.', 2, 34.99, 10, NOW(), NOW()),
+    ('A Busca Pela Relíquia Sagrada', 'Uma aventura cheia de perigos e descobertas incríveis.', 3, 39.99, 4, NOW(), NOW()),
+    ('O Enigma do Templo Perdido', 'Uma jornada arqueológica repleta de enigmas e tesouros antigos.', 1, 49.99, 7, NOW(), NOW()),
+    ('O Despertar das Trevas', 'Uma história de vampiros e criaturas sobrenaturais.', 2, 9.99, 6, NOW(), NOW()),
+    ('O Legado do Dragão', 'Uma saga épica com batalhas épicas e dragões poderosos.', 3, 44.99, 9, NOW(), NOW()),
+    ('O Segredo da Floresta Encantada', 'Uma fábula encantadora sobre a magia da natureza.', 1, 19.99, 1, NOW(), NOW());
+       
