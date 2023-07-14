@@ -5,27 +5,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LivroController;
 use App\Http\Controllers\AutorController;
-
-
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+use App\Http\Controllers\AuthController;
 
 // Rota para autenticação e registro de usuário
-// Rostas publicas
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+// Rotas públicas
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 // Rotas protegidas pelo middleware de autenticação
-Route::group(['middleware' => 'auth'], function () {
-    // Rotas protegidas pelo middleware de autenticação
-
+Route::group(['middleware' => 'auth:api'], function () {
+    
     //Usuário
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'index']);
-        Route::post('/', [UserController::class, 'store']);
         Route::get('/{id}', [UserController::class, 'show']);
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'destroy']);
@@ -52,6 +44,3 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}/livros', [AutorController::class, 'livrosDoAutor']);
     });
 });
-
-
-

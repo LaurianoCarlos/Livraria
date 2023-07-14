@@ -11,25 +11,20 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function index()
-{
-    if (Auth::check()) {
-        $users = User::all();
-        return response()->json($users);
-    } else {
-        return response()->json(['message' => 'Usuário não autenticado'], 401);
+    {
+        if (Auth::guard('api')->check()) {
+            $users = User::all();
+            return response()->json($users);
+        } else {
+            return response()->json(['message' => 'Usuário não autenticado'], 401);
+        }
     }
-}
+    
 
 
     public function store(Request $request)
 {
-    $user = User::create([
-        'name' => $request->input('name'),
-        'email' => $request->input('email'),
-        'password' => Hash::make($request->input('password'))
-    ]);
-
-    return response()->json($user, 201);
+    
 }
 
     public function show(string $id)
@@ -39,16 +34,21 @@ class UserController extends Controller
     }
 
     public function update(Request $request, string $id)
-    {
-        $user = User::findOrFail($id);
-        $user->update([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password'))
-        ]);
+{
+    $user = User::findOrFail($id);
+    $user->update([
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'password' => Hash::make($request->input('password'))
+    ]);
 
-        return response()->json($user);
-    }
+    $token = $user->createToken('auth_token')->plainTextToken;
+    $user->api_token = $token;
+    $user->save();
+
+    return response()->json(['user' => $user, 'token' => $token]);
+}
+
 
     public function destroy(string $id)
     {
@@ -58,3 +58,4 @@ class UserController extends Controller
     }
 
 }
+

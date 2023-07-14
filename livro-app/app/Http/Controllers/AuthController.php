@@ -10,24 +10,29 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-        ]);
+    
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+public function register(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|min:6',
+    ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
 
-        return response()->json(['user' => $user, 'token' => $token], 201);
-    }
+    $token = $user->createToken('auth_token')->plainTextToken;
+    $user->api_token = $token;
+    $user->save();
+
+    return response()->json(['user' => $user, 'token' => $token], 201);
+}
+
 
     public function login(Request $request)
     {
